@@ -1,0 +1,24 @@
+KAFKA  
+Ouvrir  un  producteur  Kafka  
+Dans  un  terminal  :  docker  exec  -it  kafka  bash  
+kafka-console-producer  \  --broker-list  localhost:9092  \  --topic  test-topic  
+Ouvrir  un  consumer  (lecture)  
+Dans  un  autre  terminal  :  
+docker  exec  -it  kafka  bash 
+Puis  :  
+kafka-console-consumer  \  --bootstrap-server  localhost:9092  \  --topic  test-topic  \  --from-beginning   
+  
+   
+ 
+ 
+
+SPARK  
+Dans  le   stack,  Spark  fonctionne  en  mode  cluster  :  
+●  Spark  Master  →  coordonne  les  calculs  
+ ●  Spark  Worker  →  exécute  les  tâches  
+ ●  Les  scripts  envoient  des  jobs  au  cluster  
+http://localhost:8081  le  conteneur  Spark  :  docker  exec  -it  universit-dakar-bourguiba-spark-master-1  bash   /opt/spark/bin/pyspark    exemple  :  spark.range(10).show()    pour  faire  la  data  preprocessing  exemple  avec  spark  :    Ajoutez  un  volume  dans  docker-compose.yml .  
+Spark  master  spark-master:    volumes:      -  ./spark_jobs:/opt/spark/jobs 
+Spark  worker  spark-worker:    volumes:      -  ./spark_jobs:/opt/spark/jobs   Exemple  de  script  preprocessing  Spark  
+  docker  exec  -it  universit-dakar-bourguiba-spark-master-1  \  /opt/spark/bin/spark-submit  /opt/spark/jobs/preprocess.py  
+
